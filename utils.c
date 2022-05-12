@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:10:36 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/12 19:22:26 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/05/12 21:49:40 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	hex_converter(char *hex)
 	return (total);
 }
 
-char	*nb_to_hex(int num)
+char	*nb_to_hex(size_t num)
 {
 	int			i;
 	float		nb;
@@ -74,7 +74,29 @@ char	*nb_to_hex(int num)
 	hex = ft_strnew(i);
 	while (--i >= 0)
 		hex[num++] = temp[i];
-	//if (remain)
-	//	hex[num] = '1';
+	if (ft_strlen(hex) != 2)
+		hex = ft_strjoin("0\0", hex);
 	return (hex);
+}
+
+char	*hex_to_str(int hex)
+{
+	char	*str;
+
+	str = ft_strnew(6);
+	if (hex == WHITE)
+		str = "FFFFFF";
+	else if (hex == BLUE)
+		str = "0000FF";
+	else if (hex == RED)
+		str = "FF0000";
+	else if (hex == YELLOW)
+		str = "FFFF00";
+	else if (hex == GREEN)
+		str = "00FF00";
+	else if (hex == CYAN)
+		str = "00FFFF";
+	else if (hex == MAGENTA)
+		str = "FF00FF";
+	return (str);
 }

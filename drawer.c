@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 18:39:31 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/11 18:02:39 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/05/12 22:00:08 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void	draw_to_image(int temp_x, int temp_y, t_data *data, t_map *line)
 	data->cur_x = (float)temp_x;
 	data->cur_y = (float)temp_y;
 	data->color = color_check(line->str[data->x], data);
+	printf("color for x: %d\n", data->color->color);
 	data->col = data->color->color;
 	z = ft_atoi(line->str[temp_x]) * data->elev_scale;
 	transform(data->cur_x, data->cur_y, z, data);
@@ -105,6 +106,8 @@ void	draw_to_image(int temp_x, int temp_y, t_data *data, t_map *line)
 	}
 	if (line->next != NULL)
 	{
+		data->color = color_check(line->str[data->x], data);
+		printf("color for y: %d\n", data->color->color);
 		get_next_data(data, line, 'y');
 		if (ft_abs(data->next_x - data->cur_x) > ft_abs(data->next_y - data->cur_y))
 			x_drawer(data->cur_x, data->cur_y, data, 1);

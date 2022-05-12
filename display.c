@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 17:44:37 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/11 17:09:58 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/05/12 21:23:31 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	transform_next(float x, float y, int z, t_data *data)
 void	value_swap(t_data *data)
 {
 	float	temp;
+	t_col	*tempo;
 
 	temp = data->cur_x;
 	data->cur_x = data->next_x;
@@ -71,4 +72,7 @@ void	value_swap(t_data *data)
 	temp = data->cur_y;
 	data->cur_y = data->next_y;
 	data->next_y = temp;
+	tempo = data->color;
+	data->color = data->next_col;
+	data->next_col = tempo;
 }
