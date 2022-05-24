@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:10:36 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/12 21:49:40 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/05/24 16:50:05 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,36 @@ char	*hex_to_str(int hex)
 		str = "00FFFF";
 	else if (hex == MAGENTA)
 		str = "FF00FF";
+	else if (hex == BROWN)
+		str = "A52A2A";
 	return (str);
+}
+
+int	back_to_int(t_col *col)
+{
+	char	*str;
+
+	str = ft_strnew (7);
+	if (col->r != 0)
+		str = nb_to_hex(col->r);
+	else
+	{
+		str[0] = '0';
+		str[1] = '0';
+	}
+	if (col->g != 0)
+		str = ft_strjoin(str, nb_to_hex(col->g));
+	else
+	{
+		str[2] = '0';
+		str[3] = '0';
+	}
+	if (col->b != 0)
+		str = ft_strjoin(str, nb_to_hex(col->b));
+	else
+	{
+		str[4] = '0';
+		str[5] = '0';
+	}
+	return (hex_converter(str));
 }

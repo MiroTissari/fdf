@@ -6,41 +6,11 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:54:18 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/11 15:03:30 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/05/24 19:20:46 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int	my_close(int keycode, t_data *data)
-{
-	if (keycode == 1)
-		printf ("you have just pressed the key 's'\n");
-	if (keycode == ESC)
-	{
-		printf ("destroy window");
-		mlx_destroy_window(data->mlx, data->win);
-		exit ((int)data->mlx);
-	}
-	return (0);
-}
-
-int	mouse_press(int button, int x, int y, t_data data)
-{
-	if (button == 1)
-	{
-		printf("you have pressed left click at x%d y%d", x, y);
-		//my_mlx_pixel_put(img, y, x, 0x000000FF);
-	}
-	if (button == 2)
-		printf("you have pressed right click");
-	if (button == 3)
-	{
-		printf("you have pressed the scroll button");
-		my_close(53, &data);
-	}
-	return (0);
-}
 
 int	error_handling(int error_number)
 {
@@ -57,16 +27,26 @@ void	set_values(t_data *data)
 {
 	data->default_colour = WHITE;
 	data->projection = ISOMETRIC;
+	data->col_status = 1;
+	data->big_z = 0;
 	data->win_y = 1080;
 	data->win_x = 1920;
 	data->scale = data->win_x / (data->width * 2);
 	data->elev_scale = 5;
+	data->blend = 1;
 	data->x_start = data->win_x / 2;
 	data->y_start = data->win_y / 2;
 	data->cos = 0.3;
 	data->sin = 0.3;
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, data->win_x, data->win_y, "fdf");
+}
+
+void	hooks(t_data *data)
+{
+	mlx_hook(data->win, ON_KEYUP, 0, &keyboard, data);
+	mlx_hook(data->win, ON_MOUSEDOWN, 0, &mouse_hook, data);
+//	mlx_hook(data->win, ON_MOUSEUP, 0, &mouse_hook, data);
 }
 
 int	main(int argc, char **argv)
@@ -79,15 +59,11 @@ int	main(int argc, char **argv)
 	fd = open(argv[1], O_RDWR);
 	if (fd == -1)
 		return (error_handling(1));
-
 	read_map(&data, fd);
 	set_values(&data);
 	drawer(&data);
-
-	mlx_key_hook(data.win, my_close, &data);
-	mlx_mouse_hook(data.win, mouse_press, &data);
+	hooks(&data);
 	mlx_loop(data.mlx);
-	free (data.mlx);
 	return (1);
 }
 

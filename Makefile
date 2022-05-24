@@ -6,7 +6,7 @@
 #    By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 17:40:17 by mtissari          #+#    #+#              #
-#    Updated: 2022/05/12 18:44:54 by mtissari         ###   ########.fr        #
+#    Updated: 2022/05/24 19:43:16 by mtissari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror
 INCLUDES := -I . libft/ minilibx
-FILES := main.c display.c colours.c drawer.c map.c utils.c
+FILES := main.c display.c colours.c drawer.c map.c utils.c keyboard.c mouse.c
 O_FILES = $(FILES:.c=.o)
 LIBFT := libft/
 MLX := /usr/local/include
@@ -28,7 +28,7 @@ NAME := fdf
 #gcc -Wall -Wextra -Werror -Imlx $(FILES) -c -o $@
 
 $(NAME): obj
-	@make re -C $(LIBFT)
+	@make andclean -C $(LIBFT)
 	@$(CC) $(FLAGS) $(O_FILES) -I $(LIBFT) -I $(MLX) -L $(MLXFLAGS) -L libft/ -lft -o $(NAME)
 	
 #	$(CC) $(FLAGS) $(O_FILES) -I $(MLX) -L $(MLXFLAGS) -I $(LIBFT) -L $(INCLUDES) -o $(NAME)
@@ -50,6 +50,5 @@ clean:
 
 fclean: clean
 	@rm -f $(NAME) debug
-	@make -C $(LIBFT) fclean
 
 re: fclean all

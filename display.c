@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 17:44:37 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/12 21:23:31 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/05/24 15:51:15 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	transform(float x, float y, int z, t_data *data)
 	x *= data->scale;
 	y *= data->scale;
 	temp_x = x;
+	if (z > data->big_z)
+		data->big_z = z;
 	if (data->projection == ISOMETRIC)
 	{
 		x = (temp_x - y) * cos(data->cos);

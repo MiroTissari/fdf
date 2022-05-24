@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 18:39:31 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/12 22:00:08 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/05/24 19:21:45 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	x_drawer(int x, int y, t_data *data, int plusminus)
 	math = 2 * (((data->next_y - y) * plusminus) - (data->next_x - x));
 	while (x <= data->next_x)
 	{
-		if (data->color->color != data->next_col->color)
+		if (data->color->color != data->next_col->color && data->blend > 0)
 			blend_colors(data->color, data->next_col, (data->next_x - x), data);
 		my_mlx_pixel_put(data, (int)x, (int)y, data->col);
 		if (math >= 0)
@@ -52,7 +52,7 @@ void	y_drawer(int x, int y, t_data *data, int plusminus)
 	math = 2 * (((data->next_x - x) * plusminus) - (data->next_y - y));
 	while (y <= data->next_y)
 	{
-		if (data->color->color != data->next_col->color)
+		if (data->color->color != data->next_col->color && data->blend > 0)
 			blend_colors(data->color, data->next_col, (data->next_y - y), data);
 		my_mlx_pixel_put(data, (int)x, (int)y, data->col);
 		if (math >= 0)
@@ -85,18 +85,15 @@ void	get_next_data(t_data *data, t_map *line, char axis)
 	transform_next(data->next_x, data->next_y, data->next_z, data);
 }
 
-void	draw_to_image(int temp_x, int temp_y, t_data *data, t_map *line)
+void	draw_to_image(t_data *data, t_map *line)
 {
 	int		z;
 
-	data->cur_x = (float)temp_x;
-	data->cur_y = (float)temp_y;
 	data->color = color_check(line->str[data->x], data);
-	printf("color for x: %d\n", data->color->color);
 	data->col = data->color->color;
-	z = ft_atoi(line->str[temp_x]) * data->elev_scale;
+	z = ft_atoi(line->str[data->x]) * data->elev_scale;
 	transform(data->cur_x, data->cur_y, z, data);
-	if (line->str[temp_x + 1] != '\0')
+	if (line->str[data->x + 1] != '\0')
 	{
 		get_next_data(data, line, 'x');
 		if ((data->next_x - data->cur_x) > (data->next_y - data->cur_y))
@@ -107,7 +104,7 @@ void	draw_to_image(int temp_x, int temp_y, t_data *data, t_map *line)
 	if (line->next != NULL)
 	{
 		data->color = color_check(line->str[data->x], data);
-		printf("color for y: %d\n", data->color->color);
+		data->col = data->color->color;
 		get_next_data(data, line, 'y');
 		if (ft_abs(data->next_x - data->cur_x) > ft_abs(data->next_y - data->cur_y))
 			x_drawer(data->cur_x, data->cur_y, data, 1);
@@ -133,7 +130,9 @@ int	drawer(t_data *data)
 		data->x = 0;
 		while (data->x < data->width)
 		{
-			draw_to_image(data->x, data->y, data, line);
+			data->cur_x = data->x;
+			data->cur_y = data->y;
+			draw_to_image(data, line);
 			data->x++;
 		}
 		data->y++;

@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 18:07:55 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/12 21:53:25 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:10:35 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	assign_colors(t_col *col, char *str, int i, int sign)
 		col->g = hex_converter(ft_strsub(&str[i + 2], 0, 2));
 		col->b = hex_converter(ft_strsub(&str[i + 4], 0, 2));
 	}
+	col->color = back_to_int(col);
 }
 
 t_col	*color_check(char *str, t_data *data)
@@ -44,61 +45,70 @@ t_col	*color_check(char *str, t_data *data)
 	col = (t_col *)malloc(sizeof(t_col));
 	while (str[i] != ',' && str[i])
 		i++;
-	if (str[i] == ',')
+	if (str[i] == ',' && str[i + 1] && data->col_status == 1)
 	{
 		if (ft_strlen(&str[i + 1]) == 10)
 			assign_colors(col, str, i, 1);
 		else if (ft_strlen(&str[i + 1]) == 8)
 			assign_colors(col, str, i, 2);
-		col->color = back_to_int(col);
 		return (col);
 	}
-	col->color = data->default_colour;
-	assign_colors(col, hex_to_str(data->default_colour), 0, 3);
+	else if (data->col_status != 1)
+		return (color_altitude(str, col, data));
+	assign_colors(col, hex_to_str(data->default_colour), 0, 5);
+	return (col);
+}
+
+t_col	*color_altitude(char *str, t_col *col, t_data *data)
+{
+	int	alt;
+
+	alt = ft_atoi(str) * data->elev_scale;
+	if (data->col_status == 2)
+	{
+		if (alt > 0)
+		{
+			if (alt < (data->big_z / 3 * 2))
+				assign_colors(col, hex_to_str(BROWN), 0, 5);
+			else
+				assign_colors(col, hex_to_str(WHITE), 0, 5);
+		}
+		else
+			assign_colors(col, hex_to_str(GREEN), 0, 5);
+	}
+	if (data->col_status == 3)
+	{
+		if (alt > 0)
+			assign_colors(col, hex_to_str(RED), 0, 5);
+		else
+			assign_colors(col, hex_to_str(data->default_colour), 0, 5);
+	}
 	return (col);
 }
 
 void	blend_colors(t_col *col1, t_col *col2, float diff, t_data *data)
 {
-	if (col1)
+	if (data->col_status == 2)
 	{
-		if (col1->r != col2->r)
-			col1->r = calculate_blend(col1->r, col2->r, diff);
-		if (col1->g != col2->g)
-			col1->g = calculate_blend(col1->g, col2->g, diff);
-		if (col1->b != col2->b)
-			col1->b = calculate_blend(col1->b, col2->b, diff);
-		data->col = back_to_int(col1);
+		if (diff < 0)
+			diff *= -1;
+		if (diff > 2 * data->elev_scale)
+			assign_colors(col2, hex_to_str(BROWN), 0, 5);
+		else
+		{
+			assign_colors(col2, hex_to_str(WHITE), 0, 5);
+			if (data->next_z == 0)
+				assign_colors(col2, hex_to_str(GREEN), 0, 5);
+		}
+		diff = diff / 3;
 	}
-}
-
-int	back_to_int(t_col *col)
-{
-	char	*str;
-
-	str = ft_strnew (7);
-	if (col->r != 0)
-		str = nb_to_hex(col->r);
-	else
-	{
-		str[0] = '0';
-		str[1] = '0';
-	}
-	if (col->g != 0)
-		str = ft_strjoin(str, nb_to_hex(col->g));
-	else
-	{
-		str[2] = '0';
-		str[3] = '0';
-	}
-	if (col->b != 0)
-		str = ft_strjoin(str, nb_to_hex(col->b));
-	else
-	{
-		str[4] = '0';
-		str[5] = '0';
-	}
-	return (hex_converter(str));
+	if (col1->r != col2->r)
+		col1->r = calculate_blend(col1->r, col2->r, diff);
+	if (col1->g != col2->g)
+		col1->g = calculate_blend(col1->g, col2->g, diff);
+	if (col1->b != col2->b)
+		col1->b = calculate_blend(col1->b, col2->b, diff);
+	data->col = back_to_int(col1);
 }
 
 int	calculate_blend(size_t col1, size_t col2, float diff)
@@ -107,6 +117,8 @@ int	calculate_blend(size_t col1, size_t col2, float diff)
 			col1 = col1 - (col1 / diff);
 	else
 			col1 = col1 + (col2 / diff);
+	if (col1 > 255)
+		col1 = 255;
 	return (col1);
 }
 

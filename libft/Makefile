@@ -6,7 +6,7 @@
 #    By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/02 15:18:33 by mtissari          #+#    #+#              #
-#    Updated: 2022/03/17 19:45:54 by mtissari         ###   ########.fr        #
+#    Updated: 2022/05/24 19:43:29 by mtissari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,3 +44,5 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+make andclean: all clean

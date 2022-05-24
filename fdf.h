@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 18:32:58 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/12 21:47:23 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/05/24 19:19:56 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,14 @@
 # define GREEN			0x00FF00
 # define CYAN			0x00FFFF
 # define MAGENTA		0xFF00FF
+# define BROWN			0xA52A2A
 
 # define ISOMETRIC		34
 # define PARALLEL		35
+# define SPACE			49
+# define COL_1			18
+# define COL_2			19
+# define COL_3			20
 
 enum {
 	ON_KEYDOWN = 2,
@@ -69,13 +74,16 @@ typedef struct s_data
 	int				elev_scale;
 
 	unsigned int	default_colour;
+	int				col_status;
 
 	int				x;
 	int				y;
+	int				big_z;
 	int				cur_x;
 	int				cur_y;
 	struct s_col	*color;
 	unsigned int	col;
+	int				blend;
 
 	int				next_x;
 	int				next_y;
@@ -96,12 +104,12 @@ typedef struct s_col
 	int				r;
 	int				g;
 	int				b;
-//	char			*start;
 	unsigned int	color;
 }					t_col;
 
 int		main(int argc, char **argv);
 int		error_handling(int error_number);
+void	hooks(t_data *data);
 
 void	read_map(t_data *data, int fd);
 t_map	*make_t_map(char *line);
@@ -111,7 +119,7 @@ t_map	*map_helper(t_data *data, t_map *map, int i, char *line);
 void	set_values(t_data *data);
 
 int		drawer(t_data *data);
-void	draw_to_image(int x, int y, t_data *data, t_map *line);
+void	draw_to_image(t_data *data, t_map *line);
 void	get_next_data(t_data *data, t_map *line, char axis);
 void	x_drawer(int x, int y, t_data *data, int plusminus);
 void	y_drawer(int x, int y, t_data *data, int plusminus);
@@ -120,7 +128,7 @@ t_col	*color_check(char *str, t_data *data);
 void	blend_colors(t_col *col1, t_col *col2, float diff, t_data *data);
 int		calculate_blend(size_t col1, size_t col2, float diff);
 void	assign_colors(t_col *col, char *str, int i, int sign);
-int		back_to_int(t_col *col);
+t_col	*color_altitude(char *str, t_col *col, t_data *data);
 
 void	new_img(t_data *data);
 void	transform(float x, float y, int z, t_data *data);
@@ -132,9 +140,12 @@ int		ft_abs(float num);
 int		hex_converter(char *hex);
 char	*nb_to_hex(size_t num);
 char	*hex_to_str(int hex);
+int		back_to_int(t_col *col);
 
-int		ft_abs(float num);
-int		my_close(int keycode, t_data *data);
-int		mouse_press(int button, int x, int y, t_data data);
+int		mouse_hook(int button, int x, int y, void *param);
+//int		mouse_down(int button, int x, int y, void *param);
+
+int		keyboard(int keycode, void *param);
+void	colour_status(int keycode, t_data *data);
 
 #endif
