@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 18:32:58 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/24 19:19:56 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:10:43 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <math.h>
 # include "libft/libft.h"
 
-# define MIN_WINDOW_X	960
-# define MIN_WINDOW_Y	540
 # define ESC			53
 
 # define WHITE			0xFFFFFF
@@ -37,6 +35,9 @@
 # define COL_1			18
 # define COL_2			19
 # define COL_3			20
+# define DEF_COL		8
+# define ELEV_PLUS		24
+# define ELEV_MINUS		27
 
 enum {
 	ON_KEYDOWN = 2,
@@ -75,6 +76,7 @@ typedef struct s_data
 
 	unsigned int	default_colour;
 	int				col_status;
+	int				val_swap;
 
 	int				x;
 	int				y;
@@ -142,10 +144,13 @@ char	*nb_to_hex(size_t num);
 char	*hex_to_str(int hex);
 int		back_to_int(t_col *col);
 
+void	no_blend(t_col *col1, t_col *col2, t_data *data);
+
 int		mouse_hook(int button, int x, int y, void *param);
 //int		mouse_down(int button, int x, int y, void *param);
 
 int		keyboard(int keycode, void *param);
-void	colour_status(int keycode, t_data *data);
+void	colour_elev(int keycode, t_data *data);
+void	default_colour(t_data *data);
 
 #endif

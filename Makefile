@@ -6,7 +6,7 @@
 #    By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/17 17:40:17 by mtissari          #+#    #+#              #
-#    Updated: 2022/05/24 19:43:16 by mtissari         ###   ########.fr        #
+#    Updated: 2022/06/01 17:55:56 by mtissari         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror
 INCLUDES := -I . libft/ minilibx
-FILES := main.c display.c colours.c drawer.c map.c utils.c keyboard.c mouse.c
+FILES := main.c display.c colours.c drawer.c map.c utils.c keyboard.c mouse.c \
+		helpers.c
 O_FILES = $(FILES:.c=.o)
 LIBFT := libft/
 MLX := /usr/local/include

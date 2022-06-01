@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/17 17:43:12 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/24 19:00:50 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/06/01 18:01:55 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,9 @@ int	mouse_hook(int button, int x, int y, void *param)
 	if (button == 3)
 		printf("you have pressed the scroll button");
 	if (button == 4)
-	{
 		data->scale++;
-	}
 	if (button == 5)
-	{
 		data->scale--;
-	}
 	mlx_clear_window(data->mlx, data->win);
 	drawer(data);
 	return (0);

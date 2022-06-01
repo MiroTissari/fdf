@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/17 17:54:18 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/24 19:20:46 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:26:13 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	set_values(t_data *data)
 	data->scale = data->win_x / (data->width * 2);
 	data->elev_scale = 5;
 	data->blend = 1;
+	data->val_swap = 0;
 	data->x_start = data->win_x / 2;
 	data->y_start = data->win_y / 2;
 	data->cos = 0.3;

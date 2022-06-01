@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 18:07:55 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/24 18:10:35 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:54:22 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ t_col	*color_altitude(char *str, t_col *col, t_data *data)
 
 void	blend_colors(t_col *col1, t_col *col2, float diff, t_data *data)
 {
-	if (data->col_status == 2)
+	if (data->col_status == 2 && data->blend > 0)
 	{
 		if (diff < 0)
 			diff *= -1;
@@ -102,13 +102,15 @@ void	blend_colors(t_col *col1, t_col *col2, float diff, t_data *data)
 		}
 		diff = diff / 3;
 	}
-	if (col1->r != col2->r)
+	if (col1->r != col2->r && data->blend > 0)
 		col1->r = calculate_blend(col1->r, col2->r, diff);
-	if (col1->g != col2->g)
+	if (col1->g != col2->g && data->blend > 0)
 		col1->g = calculate_blend(col1->g, col2->g, diff);
-	if (col1->b != col2->b)
+	if (col1->b != col2->b && data->blend > 0)
 		col1->b = calculate_blend(col1->b, col2->b, diff);
 	data->col = back_to_int(col1);
+	if (data->blend < 0)
+		no_blend(col1, col2, data);
 }
 
 int	calculate_blend(size_t col1, size_t col2, float diff)

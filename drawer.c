@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/04 18:39:31 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/24 19:21:45 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/06/01 17:58:38 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ void	x_drawer(int x, int y, t_data *data, int plusminus)
 	if (data->next_y - y < 0)
 		plusminus = -1;
 	math = 2 * (((data->next_y - y) * plusminus) - (data->next_x - x));
-	while (x <= data->next_x)
+	while (x <= data->next_x && x <= data->win_x && y <= data->win_y)
 	{
-		if (data->color->color != data->next_col->color && data->blend > 0)
+		if (data->color->color != data->next_col->color)
 			blend_colors(data->color, data->next_col, (data->next_x - x), data);
-		my_mlx_pixel_put(data, (int)x, (int)y, data->col);
+		if (x >= 0)
+			my_mlx_pixel_put(data, x, y, data->col);
 		if (math >= 0)
 		{
 			y = y + plusminus;
@@ -37,6 +38,8 @@ void	x_drawer(int x, int y, t_data *data, int plusminus)
 			math += 2 * ((data->next_y - y) * plusminus);
 		x++;
 	}
+	if (data->val_swap == 1)
+		value_swap(data);
 }
 
 void	y_drawer(int x, int y, t_data *data, int plusminus)
@@ -50,11 +53,11 @@ void	y_drawer(int x, int y, t_data *data, int plusminus)
 	if (data->next_x - x < 0)
 		plusminus = -1;
 	math = 2 * (((data->next_x - x) * plusminus) - (data->next_y - y));
-	while (y <= data->next_y)
+	while (y <= data->next_y && x <= data->win_x && y <= data->win_y)
 	{
-		if (data->color->color != data->next_col->color && data->blend > 0)
+		if (data->color->color != data->next_col->color)
 			blend_colors(data->color, data->next_col, (data->next_y - y), data);
-		my_mlx_pixel_put(data, (int)x, (int)y, data->col);
+		my_mlx_pixel_put(data, x, y, data->col);
 		if (math >= 0)
 		{
 			x = x + plusminus;
@@ -64,6 +67,8 @@ void	y_drawer(int x, int y, t_data *data, int plusminus)
 			math += 2 * ((data->next_x - x) * plusminus);
 		y++;
 	}
+	if (data->val_swap == 1)
+		value_swap(data);
 }
 
 void	get_next_data(t_data *data, t_map *line, char axis)
@@ -96,7 +101,7 @@ void	draw_to_image(t_data *data, t_map *line)
 	if (line->str[data->x + 1] != '\0')
 	{
 		get_next_data(data, line, 'x');
-		if ((data->next_x - data->cur_x) > (data->next_y - data->cur_y))
+		if (ft_abs(data->next_x - data->cur_x) > ft_abs(data->next_y - data->cur_y))
 			x_drawer(data->cur_x, data->cur_y, data, 1);
 		else
 			y_drawer(data->cur_x, data->cur_y, data, 1);
@@ -115,8 +120,8 @@ void	draw_to_image(t_data *data, t_map *line)
 
 /*
 	In the function above^
-	first if is to draw the x_axis
-	second if is to draw the y_axis
+	first 'if' is to draw the x_axis
+	second 'if' is to draw the y_axis
 */
 
 int	drawer(t_data *data)

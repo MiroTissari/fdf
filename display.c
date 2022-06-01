@@ -6,7 +6,7 @@
 /*   By: mtissari <mtissari@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/12 17:44:37 by mtissari          #+#    #+#             */
-/*   Updated: 2022/05/24 15:51:15 by mtissari         ###   ########.fr       */
+/*   Updated: 2022/06/01 15:24:12 by mtissari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,8 @@ void	value_swap(t_data *data)
 	tempo = data->color;
 	data->color = data->next_col;
 	data->next_col = tempo;
+	if (data->val_swap == 1)
+		data->val_swap = 0;
+	else
+		data->val_swap = 1;
 }
