@@ -29,9 +29,10 @@ mars.fdf:
 
 <img width="1920" alt="Screen Shot 2022-12-22 at 4 51 03 PM" src="https://user-images.githubusercontent.com/90178358/209175767-d97e698e-fe44-4841-a778-a82c8f0ec6e2.png">
 
-42
+42 with red_blue && 42 with mountain:
 
-<img width="500" alt="Screen Shot 2022-11-22 at 4 13 19 PM" src="https://user-images.githubusercontent.com/90178358/209175868-f6c5383b-da7e-4aa9-a622-275ab06d9d6a.png">
+<img width="500" alt="Screen Shot 2022-11-22 at 4 13 19 PM" src="https://user-images.githubusercontent.com/90178358/209175868-f6c5383b-da7e-4aa9-a622-275ab06d9d6a.png"> <img width="500" alt="Screen Shot 2022-12-22 at 6 19 06 PM" src="https://user-images.githubusercontent.com/90178358/209177512-bb2010fd-a2ed-40e2-a156-1ac4df745979.png">
+
 
 
 instructions with left click:
