@@ -1,7 +1,7 @@
 # fdf
 The first project of the graphic branch in The Hive.(I ended up doing another branch)
   
-
+![fdf hive gif](https://user-images.githubusercontent.com/90178358/209221714-2c1f60da-6789-4fee-8b1c-e0b4fcf8ba7b.gif)
   
 
 ## What is it about?
@@ -16,7 +16,7 @@ check from the maps-directory which map you want to use and type **./fdf maps/ma
 When the window pops up, hold the left button of your mouse to display instructions.
 ```
 
-hive.fdf:
+hive.fdf(The map used in the gif):
 
 <img width="735" alt="Screen Shot 2022-12-22 at 5 50 53 PM" src="https://user-images.githubusercontent.com/90178358/209172478-fde36d40-b465-4cdb-94a3-14dcb3c1e6da.png">
 
