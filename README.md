@@ -13,5 +13,10 @@ check from the maps-directory which map you want to use and type **./fdf maps/ma
 When the window pops up, hold the left button of your mouse to display instructions.
 ```
 
+hive.fdf:
 
+<img width="735" alt="Screen Shot 2022-12-22 at 5 50 53 PM" src="https://user-images.githubusercontent.com/90178358/209172478-fde36d40-b465-4cdb-94a3-14dcb3c1e6da.png">
 
+42_red_blue.fdf:
+
+<img width="1616" alt="Screen Shot 2022-12-22 at 5 51 46 PM" src="https://user-images.githubusercontent.com/90178358/209172496-91e4d297-6ba7-45b7-b62c-293123926a02.png">
