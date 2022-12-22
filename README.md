@@ -1,8 +1,8 @@
 # fdf
 The first project of the graphic branch in The Hive.(I ended up doing another branch)
+  
 
-https://user-images.githubusercontent.com/90178358/209175060-a626c408-b7a3-489e-9c63-7f809501f839.mov
-
+  
 
 ## What is it about?
 The objective of the project is to get somekind of an understanding how graphics work.
@@ -20,9 +20,11 @@ hive.fdf:
 
 <img width="735" alt="Screen Shot 2022-12-22 at 5 50 53 PM" src="https://user-images.githubusercontent.com/90178358/209172478-fde36d40-b465-4cdb-94a3-14dcb3c1e6da.png">
 
-The map that is used in the first video:
+The map that is used in the video below:
 
 <img width="1616" alt="Screen Shot 2022-12-22 at 5 51 46 PM" src="https://user-images.githubusercontent.com/90178358/209172496-91e4d297-6ba7-45b7-b62c-293123926a02.png">
+  
+https://user-images.githubusercontent.com/90178358/209175060-a626c408-b7a3-489e-9c63-7f809501f839.mov
 
 
 mars.fdf:
