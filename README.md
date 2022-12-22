@@ -12,3 +12,6 @@ type **make** to compile the program.
 check from the maps-directory which map you want to use and type **./fdf maps/map_name.fdf** ie. *./fdf maps/hive.fdf*
 When the window pops up, hold the left button of your mouse to display instructions.
 ```
+
+
+
