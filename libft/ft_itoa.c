@@ -60,9 +60,7 @@ static void	ft_intcpy(char *string, int nb)
 char	*ft_itoa(int n)
 {
 	char	*str;
-	int		x;
 
-	x = 0;
 	str = (char *)malloc(sizeof(char) * ft_intlen(n) + 1);
 	if (str == NULL)
 		return (NULL);
